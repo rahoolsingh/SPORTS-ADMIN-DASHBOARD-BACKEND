@@ -1,6 +1,6 @@
 const maskMail = (mail) => {
     mail = mail.split("@");
-    mail[0] = mail[0].substr(0, 3) + "...";
+    mail[0] = mail[0].substr(0, 3) + "*****";
     return mail.join("@");
 };
 
