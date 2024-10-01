@@ -1,16 +1,33 @@
 import { Router } from "express";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import { maskMailArray } from "../utils/maskMail.js";
+import {
+    addAuthUser,
+    resendOtp,
+    sendOtp,
+    verifyOtp,
+    getUser,
+    continueSession,
+    logout,
+} from "../controllers/auth.controller.js";
 
 const router = Router();
 
-dotenv.config()
+dotenv.config();
 
-// Authorised Emails
-const AUTHORISED_MAILS = JSON.parse(process.env.AUTH_MAILS)
+// temp route to add user to db
+// router.get("/add-user/:email", addAuthUser);
 
-router.get("/mail-list", (req, res) => {
-    res.send(maskMailArray(AUTHORISED_MAILS));
-});
+router.post("/send-otp", sendOtp);
+
+router.post("/verify-otp", verifyOtp);
+
+router.post("/resend-otp", resendOtp);
+
+router.get("/showall", getUser);
+
+router.post("/continue-session", continueSession);
+
+router.post("/logout", logout);
 
 export default router;
