@@ -8,11 +8,9 @@ const authUsersSchema = new mongoose.Schema({
     },
     otp: {
         type: String,
-        required: true,
     },
     otpExpires: {
         type: Date,
-        required: true,
     },
     isBlocked: {
         type: Boolean,

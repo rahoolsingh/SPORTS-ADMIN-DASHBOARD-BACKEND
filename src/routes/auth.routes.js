@@ -10,6 +10,7 @@ import {
     continueSession,
     logout,
 } from "../controllers/auth.controller.js";
+import checkAuthentication from "../middlewares/checkAuthentication.js";
 
 const router = Router();
 
@@ -24,9 +25,9 @@ router.post("/verify-otp", verifyOtp);
 
 router.post("/resend-otp", resendOtp);
 
-router.get("/showall", getUser);
+router.get("/showall", checkAuthentication, getUser);
 
-router.post("/continue-session", continueSession);
+router.post("/continue-session", checkAuthentication, continueSession);
 
 router.post("/logout", logout);
 

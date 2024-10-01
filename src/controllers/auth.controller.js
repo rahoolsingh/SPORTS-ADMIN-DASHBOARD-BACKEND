@@ -123,34 +123,23 @@ const resendOtp = async (req, res) => {
 
 // verify jwt token and send user data
 const getUser = async (req, res) => {
-    const token = req.headers.authorization.split(" ")[1];
+    // verify token done in checkAuthentication middleware
+    console.log("req.user", req.user);
+    const user = await auth.findOne({ email: req.user.email });
 
-    if (!token) {
-        return res.status(401).json({ message: "Unauthorized" });
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
     }
 
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log("decoded", decoded);
-        const user = await auth.findOne({ email: decoded.email });
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        res.status(200).json({ user });
-    } catch (error) {
-        console.error("Error verifying token:", error);
-        res.status(500).json({ message: "Internal server error" });
-    }
+    res.status(200).json({ user });
 };
 
 const continueSession = async (req, res) => {
-    const decoded = jwt.verify(
-        req.headers.authorization.split(" ")[1],
-        process.env.JWT_SECRET
-    );
-    const user = await auth.findOne({ email: decoded.email });
+    // verify token done in checkAuthentication middleware
+
+    console.log("req.user", req.user);
+
+    const user = await auth.findOne({ email: req.user.email });
 
     if (!user) {
         return res.status(404).json({ message: "User not found" });
