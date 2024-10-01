@@ -33,4 +33,4 @@ const atheleteSchema = new Schema(
     }
 );
 
-export default mongoose.model("Athlete", atheleteSchema);
+export default mongoose.model("Athelete", atheleteSchema);

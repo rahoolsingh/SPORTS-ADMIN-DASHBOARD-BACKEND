@@ -18,7 +18,9 @@ app.use(cookieParser());
 
 // routes
 import authRoutes from "./routes/auth.routes.js";
-
 app.use("/api/v1/auth", authRoutes);
+
+import atheleteRoutes from "./routes/athelete.routes.js";
+app.use("/api/v1/athelete", atheleteRoutes);
 
 export default app;
