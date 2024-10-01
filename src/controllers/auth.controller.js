@@ -23,10 +23,7 @@ const sendOtp = async (req, res) => {
             `Your OTP is ${otp}. It will expire in 5 minutes.`,
             `<h1>Your OTP is ${otp}</h1><p>It will expire in 5 minutes.</p>
             <p>Do not share this OTP with anyone.</p>
-            
-            # Brand Credit
-            <h3>Made with ❤️ by Brand Credit</h3>
-            `
+            <p>If you did not request this OTP, please ignore this email.</p>`
         );
 
         res.status(200).json({ message: "OTP sent successfully" });
