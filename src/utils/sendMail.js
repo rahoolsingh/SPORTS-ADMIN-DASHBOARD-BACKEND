@@ -13,8 +13,17 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const sendMail = (to, subject, text, html) => {
-    html = `${html}<br><br>
+const sendMail = async (to, subject, text, html) => {
+    // Validate email and other inputs
+    if (!to || !subject || !html) {
+        console.error(
+            "Invalid parameters: 'to', 'subject', and 'html' are required."
+        );
+        throw new Error("Invalid parameters for sending email.");
+    }
+
+    // Construct the footer HTML
+    html += `<br><br>
     <div style="border-top: 1px solid #ddd; padding-top: 20px; margin-top: 20px; font-family: Arial, sans-serif; color: #555;">
         <img src="https://raw.githubusercontent.com/rahoolsingh/Backend/refs/heads/master/public/assets/logo-white-border.png" alt="Logo" width="200" height="auto" style="display: block; margin: 0;">
         <p style="font-size: 16px; font-weight: bold; margin: 0;">Data Management by DRS Tech</p>
@@ -30,27 +39,29 @@ const sendMail = (to, subject, text, html) => {
             This email and any attachments may contain confidential information. If you are not the intended recipient, please notify the sender and delete this email. 
             <span style="font-size: 8px;">MID: ${Date.now()}</span>
         </p>
-    </div>
-    `;
+    </div>`;
+
     const mailOptions = {
-        from: process.env.SMTP_EMAIL,
+        from: {
+            name: "DRS Technology",
+            address: process.env.SMTP_EMAIL,
+        },
         to,
         subject,
         text,
         html,
     };
 
-    return new Promise((resolve, reject) => {
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error("Error sending email:", error);
-                reject(error);
-            } else {
-                console.log("Message sent:", info.messageId);
-                resolve(info);
-            }
-        });
-    });
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log("Message sent:", info.messageId);
+        return info; // Return the info on success
+    } catch (error) {
+        // Log error without crashing the server
+        console.error("Error sending email:", error);
+        // You could also consider throwing the error here if you want to handle it at a higher level
+        throw new Error("Failed to send email.");
+    }
 };
 
 export default sendMail;

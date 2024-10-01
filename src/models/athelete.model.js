@@ -23,6 +23,7 @@ const atheleteSchema = new Schema(
         residentCertificate: String,
         adharFrontPhoto: String,
         adharBackPhoto: String,
+        enrollmentNumber: String,
         status: {
             enum: ["pending", "approved", "rejected"],
             type: String,
