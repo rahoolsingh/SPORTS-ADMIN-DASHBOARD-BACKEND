@@ -23,4 +23,7 @@ app.use("/api/v1/auth", authRoutes);
 import atheleteRoutes from "./routes/athelete.routes.js";
 app.use("/api/v1/athelete", atheleteRoutes);
 
+import coachRoutes from "./routes/coach.routes.js";
+app.use("/api/v1/coach", coachRoutes);
+
 export default app;

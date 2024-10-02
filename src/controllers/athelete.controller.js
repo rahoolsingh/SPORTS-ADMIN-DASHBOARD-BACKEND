@@ -70,12 +70,10 @@ const markStatusApproved = async (req, res) => {
         const atheleteData = await Athelete.findOne({ regNo });
 
         if (!atheleteData.photo) {
-            return res
-                .status(404)
-                .json({
-                    message:
-                        "Photo not found, Without photo, profile can't be approved",
-                });
+            return res.status(404).json({
+                message:
+                    "Photo not found, Without photo, profile can't be approved",
+            });
         }
 
         // check if id is available in AtheleteEnrollment (regNo field)
@@ -180,9 +178,11 @@ const markStatusApproved = async (req, res) => {
             return res.status(404).json({ message: "Athlete not found" });
         }
 
-        res.status(200).json(athlete);
+        res.status(200).json({
+            message: "Athlete approved successfully.",
+            athlete,
+        });
     } catch (error) {
-        console.error("Error updating athlete status:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
@@ -191,6 +191,32 @@ const markStatusRejected = async (req, res) => {
     const regNo = req.params.regNo;
 
     console.log("RegNo:", regNo);
+
+    const atheleteData = await Athelete.findOne({ regNo });
+
+    if (!atheleteData) {
+        return res.status(404).json({ message: "Athlete not found" });
+    }
+
+    await sendWithAttachment(
+        atheleteData.email,
+        `${atheleteData.regNo} - Your profile has been rejected`,
+        `Dear ${atheleteData.athleteName},
+
+        We regret to inform you that your profile has been rejected by JKTA. Below are the details:
+
+        Tracking Number: ${atheleteData.regNo}
+        Name: ${atheleteData.athleteName}
+        Reason: Rejected by the admin, please contact the admin for more details.
+
+        For any queries, please contact us at
+
+        Email: ${process.env.ADMIN_EMAIL}
+        Mobile: ${process.env.ADMIN_MOBILE}
+
+        Thank you for registering with JKTA.
+        `
+    );
 
     const athlete = await Athelete.findOneAndUpdate(
         { regNo },
@@ -202,7 +228,10 @@ const markStatusRejected = async (req, res) => {
         return res.status(404).json({ message: "Athlete not found" });
     }
 
-    res.status(200).json(athlete);
+    res.status(200).json({
+        message: "Athlete rejected successfully.",
+        athlete,
+    });
 };
 
 export {
