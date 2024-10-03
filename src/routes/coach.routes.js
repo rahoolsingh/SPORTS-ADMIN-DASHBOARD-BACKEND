@@ -23,4 +23,6 @@ router.put("/mark-approved/:regNo", checkAuthentication, markStatusApproved);
 
 router.put("/mark-rejected/:regNo", checkAuthentication, markStatusRejected);
 
+router.get("/details/:regNo", checkAuthentication);
+
 export default router;

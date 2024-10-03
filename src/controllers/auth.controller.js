@@ -56,25 +56,30 @@ const verifyOtp = async (req, res) => {
         }
 
         if (user.otp !== otp) {
-            return res.status(400).json({ message: "Invalid OTP" });
+            return res.status(400).json({ message: "Invalid OTP or expired" });
         }
 
         if (user.otp === otp) {
-            await auth.updateOne(
+            const tokenExpires = new Date(new Date().getTime() + 60 * 60000);
+            const user = await auth.updateOne(
                 { email },
                 {
                     otp: "",
                     otpExpires: "",
-                    tokenExpires: new Date(new Date().getTime() + 60 * 60000),
+                    tokenExpires: tokenExpires,
                 }
             );
+
+            const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+                expiresIn: "1h",
+            });
+
+            res.status(200).json({
+                message: "OTP verified",
+                token,
+                sessionExpiry: tokenExpires,
+            });
         }
-
-        const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
-        });
-
-        res.status(200).json({ message: "OTP verified", token });
     } catch (error) {
         console.error("Error verifying OTP:", error);
         res.status(500).json({ message: "Internal server error" });
@@ -144,7 +149,7 @@ const continueSession = async (req, res) => {
 
     res.status(200).json({
         message: "Session validated successfully",
-        sessionDuration: user.tokenExpires - new Date(),
+        sessionExpiry: user.tokenExpires,
     });
 };
 

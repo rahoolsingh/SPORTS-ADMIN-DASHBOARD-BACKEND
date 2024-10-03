@@ -26,4 +26,8 @@ app.use("/api/v1/athelete", atheleteRoutes);
 import coachRoutes from "./routes/coach.routes.js";
 app.use("/api/v1/coach", coachRoutes);
 
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to the API" });
+});
+
 export default app;

@@ -234,6 +234,23 @@ const markStatusRejected = async (req, res) => {
     });
 };
 
+const getAtheleteDetails = async (req, res) => {
+    try {
+        const regNo = req.params.regNo;
+        console.log("RegNo:", regNo);
+
+        const athelete = await Athelete.findOne({ regNo });
+
+        if (!athelete) {
+            return res.status(404).json({ message: "Athlete not found" });
+        }
+
+        res.json(athelete);
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 export {
     listAtheletes,
     pendingAtheletes,
@@ -241,4 +258,5 @@ export {
     allAtheletesCount,
     markStatusApproved,
     markStatusRejected,
+    getAtheleteDetails,
 };
