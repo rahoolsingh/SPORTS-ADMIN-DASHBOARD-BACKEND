@@ -7,6 +7,7 @@ import {
     markStatusRejected,
     pendingAtheletes,
     pendingAtheletesCount,
+    updateAthelete,
 } from "../controllers/athelete.controller.js";
 import checkAuthentication from "../middlewares/checkAuthentication.js";
 
@@ -29,5 +30,7 @@ router.put("/mark-approved/:regNo", checkAuthentication, markStatusApproved);
 router.put("/mark-rejected/:regNo", checkAuthentication, markStatusRejected);
 
 router.get("/details/:regNo", checkAuthentication, getAtheleteDetails);
+
+router.put("/update/:regNo", checkAuthentication, updateAthelete);
 
 export default router;

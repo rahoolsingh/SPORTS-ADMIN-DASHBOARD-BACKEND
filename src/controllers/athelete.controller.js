@@ -251,6 +251,49 @@ const getAtheleteDetails = async (req, res) => {
     }
 };
 
+const updateAthelete = async (req, res) => {
+    try {
+        const regNo = req.params.regNo;
+        console.log("Update RegNo:", regNo);
+
+        const updateFields = {
+            athleteName: req.body.athleteName,
+            fatherName: req.body.fatherName,
+            motherName: req.body.motherName,
+            dob: req.body.dob,
+            gender: req.body.gender,
+            district: req.body.district,
+            mob: req.body.mob,
+            email: req.body.email,
+            adharNumber: req.body.adharNumber,
+            address: req.body.address,
+            pin: req.body.pin,
+            panNumber: req.body.panNumber,
+            academyName: req.body.academyName,
+            coachName: req.body.coachName,
+            status: req.body.status,
+        };
+
+        const athelete = await Athelete.findOneAndUpdate(
+            { regNo },
+            { $set: updateFields },
+            { new: true }
+        );
+
+        if (!athelete) {
+            return res.status(404).json({ message: "Athlete not found" });
+        }
+
+        res.json({
+            message: "Athlete updated successfully.",
+            athelete,
+            status: 200,
+        });
+    } catch (error) {
+        console.log("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
 export {
     listAtheletes,
     pendingAtheletes,
@@ -259,4 +302,5 @@ export {
     markStatusApproved,
     markStatusRejected,
     getAtheleteDetails,
+    updateAthelete,
 };
