@@ -1,11 +1,13 @@
 import { Router } from "express";
 import {
     allCoachesCount,
+    getCoachDetails,
     listCoaches,
     markStatusApproved,
     markStatusRejected,
     pendingCoaches,
     pendingCoachesCount,
+    updateCoach,
 } from "../controllers/coach.controller.js";
 import checkAuthentication from "../middlewares/checkAuthentication.js";
 
@@ -23,6 +25,8 @@ router.put("/mark-approved/:regNo", checkAuthentication, markStatusApproved);
 
 router.put("/mark-rejected/:regNo", checkAuthentication, markStatusRejected);
 
-router.get("/details/:regNo", checkAuthentication);
+router.get("/details/:regNo", checkAuthentication, getCoachDetails);
+
+router.put("/update/:regNo", checkAuthentication, updateCoach);
 
 export default router;

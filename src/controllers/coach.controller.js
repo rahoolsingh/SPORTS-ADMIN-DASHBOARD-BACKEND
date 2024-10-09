@@ -230,6 +230,62 @@ const markStatusRejected = async (req, res) => {
     });
 };
 
+const getCoachDetails = async (req, res) => {
+    try {
+        const regNo = req.params.regNo;
+
+        const coach = await Coach.findOne({ regNo });
+
+        if (!coach) {
+            return res.status(404).json({ message: "Coach not found" });
+        }
+
+        res.json(coach);
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+const updateCoach = async (req, res) => {
+    try {
+        const regNo = req.params.regNo;
+
+        const updateFields = {
+            playerName: req.body.playerName,
+            fatherName: req.body.fatherName,
+            motherName: req.body.motherName,
+            dob: req.body.dob,
+            gender: req.body.gender,
+            district: req.body.district,
+            mob: req.body.mob,
+            email: req.body.email,
+            adharNumber: req.body.adharNumber,
+            address: req.body.address,
+            pin: req.body.pin,
+            panNumber: req.body.panNumber,
+            status: req.body.status,
+        };
+
+        const coach = await Coach.findOneAndUpdate(
+            { regNo },
+            { $set: updateFields },
+            { new: true }
+        );
+
+        if (!coach) {
+            return res.status(404).json({ message: "Coach not found" });
+        }
+
+        res.json({
+            message: "Coach updated successfully.",
+            coach,
+            status: 200,
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 export {
     listCoaches,
     pendingCoaches,
@@ -237,4 +293,6 @@ export {
     allCoachesCount,
     markStatusApproved,
     markStatusRejected,
+    getCoachDetails,
+    updateCoach,
 };
