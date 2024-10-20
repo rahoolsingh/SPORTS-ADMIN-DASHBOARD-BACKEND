@@ -2,8 +2,8 @@ import fs from "fs";
 import axios from "axios";
 
 // download image from url as a PNG file with passed name on root directory
-const downloadImage = async (url, name) => {
-    const path = `./${name}`;
+const downloadImage = async (url, filename) => {
+    const path = `./${filename}`;
     const writer = fs.createWriteStream(path);
 
     const response = await axios({
