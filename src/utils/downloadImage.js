@@ -20,4 +20,16 @@ const downloadImage = async (url, filename, path = ".") => {
     });
 };
 
-export { downloadImage };
+// download multiple images from urls as PNG files with passed names on root directory
+const downloadImages = async (images) => {
+    if (!images || images.length === 0) {
+        return;
+    }
+
+    images.map(async (image) => {
+        await downloadImage(image.url, image.filename);
+    });
+};
+
+export { downloadImage, downloadImages };
+export default downloadImage;
