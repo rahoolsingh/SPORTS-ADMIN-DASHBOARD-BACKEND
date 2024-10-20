@@ -9,7 +9,10 @@ const sendOtp = async (req, res) => {
         const user = await auth.findOne({ email });
 
         if (!user || user.isBlocked) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({
+                message:
+                    "Requested user not found. Please check your email and try again!",
+            });
         }
 
         const otp = Math.floor(100000 + Math.random() * 900000);
@@ -42,7 +45,10 @@ const verifyOtp = async (req, res) => {
             .select("otp otpExpires isBlocked tokenExpires");
 
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({
+                message:
+                    "Requested user not found. Please check your email and try again!",
+            });
         }
 
         if (user.isBlocked) {
@@ -93,7 +99,10 @@ const resendOtp = async (req, res) => {
         const user = await auth.findOne({ email });
 
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({
+                message:
+                    "Requested user not found. Please check your email and try again!",
+            });
         }
 
         if (user.isBlocked) {
@@ -130,7 +139,10 @@ const getUser = async (req, res) => {
     const user = await auth.findOne({ email: req.user.email });
 
     if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({
+            message:
+                "Requested user not found. Please check your email and try again!",
+        });
     }
 
     res.status(200).json({ user });
@@ -144,7 +156,10 @@ const continueSession = async (req, res) => {
     const user = await auth.findOne({ email: req.user.email });
 
     if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({
+            message:
+                "Requested user not found. Please check your email and try again!",
+        });
     }
 
     res.status(200).json({
@@ -165,7 +180,10 @@ const logout = async (req, res) => {
         const user = await auth.findOne({ email: decoded.email });
 
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({
+                message:
+                    "Requested user not found. Please check your email and try again!",
+            });
         }
 
         await auth.updateOne({ email: decoded.email }, { tokenExpires: "" });
