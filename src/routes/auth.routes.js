@@ -18,9 +18,9 @@ const router = Router();
 dotenv.config();
 
 // temp route to add user to db
-router.get("/testing/add-user/:email", addAuthUser);
+router.get("/test/add-user/:email", addAuthUser);
 
-router.get("/testing/delete-user/:email", deleteAuthUser);
+router.get("/test/delete-user/:email", deleteAuthUser);
 
 router.post("/send-otp", sendOtp);
 
