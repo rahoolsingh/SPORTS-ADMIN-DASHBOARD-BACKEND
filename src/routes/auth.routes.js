@@ -9,6 +9,7 @@ import {
     getUser,
     continueSession,
     logout,
+    deleteAuthUser,
 } from "../controllers/auth.controller.js";
 import checkAuthentication from "../middlewares/checkAuthentication.js";
 
@@ -17,7 +18,9 @@ const router = Router();
 dotenv.config();
 
 // temp route to add user to db
-router.get("/add-user/:email", addAuthUser);
+router.get("/testing/add-user/:email", addAuthUser);
+
+router.get("/testing/delete-user/:email", deleteAuthUser);
 
 router.post("/send-otp", sendOtp);
 

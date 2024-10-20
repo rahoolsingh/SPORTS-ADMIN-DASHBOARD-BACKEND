@@ -195,7 +195,7 @@ const logout = async (req, res) => {
     }
 };
 
-// temp route to add user to db
+// test route to add user to db
 const addAuthUser = async (req, res) => {
     // from url params email="email"
     const { email } = req.params;
@@ -219,12 +219,36 @@ const addAuthUser = async (req, res) => {
     }
 };
 
+// test route to delete user from db
+const deleteAuthUser = async (req, res) => {
+    // from url params email="email"
+    const { email } = req.params;
+
+    console.log("====================================>", email);
+
+    try {
+        const user = await auth.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        await auth.deleteOne({ email });
+
+        res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 export {
     sendOtp,
     verifyOtp,
     resendOtp,
     getUser,
     addAuthUser,
+    deleteAuthUser,
     continueSession,
     logout,
 };
