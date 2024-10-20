@@ -88,7 +88,9 @@ const markStatusApproved = async (req, res) => {
         } else {
             const CoachEnrollmentCount = await CoachEnrollment.countDocuments(); // as it returns a promise
             CoachEnrollmentDetails = await CoachEnrollment.create({
-                enrollmentNumber: `JKTA${10000 + CoachEnrollmentCount + 1}`,
+                enrollmentNumber: `Veer Rajpoot${
+                    10000 + CoachEnrollmentCount + 1
+                }`,
                 regNo: coachData._id,
             });
         }

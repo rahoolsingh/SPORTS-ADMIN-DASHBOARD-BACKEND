@@ -43,7 +43,7 @@ const sendMail = async (to, subject, text, html) => {
 
     const mailOptions = {
         from: {
-            name: "DRS Technology",
+            name: "Veer Rajpoot",
             address: process.env.SMTP_EMAIL,
         },
         to,

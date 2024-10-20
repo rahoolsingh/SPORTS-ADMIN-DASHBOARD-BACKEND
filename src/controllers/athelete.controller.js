@@ -89,7 +89,9 @@ const markStatusApproved = async (req, res) => {
             const AthleteEnrollmentCount =
                 await AtheleteEnrollment.countDocuments(); // as it returns a promise
             AthleteEnrollmentDetails = await AtheleteEnrollment.create({
-                enrollmentNumber: `JKTA${1000 + AthleteEnrollmentCount + 1}`,
+                enrollmentNumber: `Veer Rajpoot${
+                    1000 + AthleteEnrollmentCount + 1
+                }`,
                 regNo: atheleteData._id,
             });
         }
@@ -124,7 +126,7 @@ const markStatusApproved = async (req, res) => {
             `${AthleteEnrollmentDetails.enrollmentNumber} - Congratulations, your profile has been approved`,
             `Dear ${atheleteData.athleteName},
 
-            Congratulations! Your profile has been approved by JKTA. Below are your enrollment details:
+            Congratulations! Your profile has been approved by Veer Rajpoot. Below are your enrollment details:
 
             Tracking Number: ${atheleteData.regNo}
             Enrollment Number/Roll Number: ${AthleteEnrollmentDetails.enrollmentNumber}
@@ -138,12 +140,12 @@ const markStatusApproved = async (req, res) => {
             Email: ${atheleteData.email}
             Mobile: ${atheleteData.mob}
 
-            Thank you for registering with JKTA.
+            Thank you for registering with Veer Rajpoot.
 
             Best regards,
-            JKTA Team`,
+            Veer Rajpoot Team`,
             `<p>Dear ${atheleteData.athleteName},</p>
-            <p>Congratulations! Your profile has been approved by JKTA. Below are your enrollment details:</p>
+            <p>Congratulations! Your profile has been approved by Veer Rajpoot. Below are your enrollment details:</p>
             <table>
             <tr>
                 <td><strong>Tracking Number:</strong></td>
@@ -166,8 +168,8 @@ const markStatusApproved = async (req, res) => {
             <p>For any future correspondence, please use this email and the mobile number provided during registration.</p>
             <p><strong>Email:</strong> ${atheleteData.email}</p>
             <p><strong>Mobile:</strong> ${atheleteData.mobile}</p>
-            <p>Thank you for registering with JKTA.</p>
-            <p>Best regards,<br>JKTA Team</p>`,
+            <p>Thank you for registering with Veer Rajpoot.</p>
+            <p>Best regards,<br>Veer Rajpoot Team</p>`,
             `${atheleteData.regNo}-identity-card.pdf`,
             `./${atheleteData.regNo}-identity-card.pdf`
         );
@@ -203,7 +205,7 @@ const markStatusRejected = async (req, res) => {
         `${atheleteData.regNo} - Your profile has been rejected`,
         `Dear ${atheleteData.athleteName},
 
-        We regret to inform you that your profile has been rejected by JKTA. Below are the details:
+        We regret to inform you that your profile has been rejected by Veer Rajpoot. Below are the details:
 
         Tracking Number: ${atheleteData.regNo}
         Name: ${atheleteData.athleteName}
@@ -214,7 +216,7 @@ const markStatusRejected = async (req, res) => {
         Email: ${process.env.ADMIN_EMAIL}
         Mobile: ${process.env.ADMIN_MOBILE}
 
-        Thank you for registering with JKTA.
+        Thank you for registering with Veer Rajpoot.
         `
     );
 
