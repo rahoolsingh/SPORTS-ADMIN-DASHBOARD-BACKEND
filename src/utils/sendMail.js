@@ -26,8 +26,8 @@ const sendMail = async (to, subject, text, html) => {
     html += `<br><br>
     <div style="border-top: 1px solid #ddd; padding-top: 20px; margin-top: 20px; font-family: Arial, sans-serif; color: #555;">
         <img src="https://raw.githubusercontent.com/rahoolsingh/Backend/refs/heads/master/public/assets/logo-white-border.png" alt="Logo" width="200" height="auto" style="display: block; margin: 0;">
-        <p style="font-size: 16px; font-weight: bold; margin: 0;">Data Management by DRS Tech</p>
-        <p style="font-size: 12px; margin: 5px 0;">&copy; ${new Date().getFullYear()} DRS Tech. All rights reserved.</p>
+        <p style="font-size: 16px; font-weight: bold; margin: 0;">Data Management by Veer Rajpoot</p>
+        <p style="font-size: 12px; margin: 5px 0;">&copy; ${new Date().getFullYear()} Veer Rajpoot. All rights reserved.</p>
         
         <div style="margin-top: 20px; font-size: 12px; color: #777;">
             <h4 style="margin: 5px 0;">Terms and Conditions</h4>
