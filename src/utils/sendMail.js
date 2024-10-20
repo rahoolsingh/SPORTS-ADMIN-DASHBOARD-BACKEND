@@ -25,7 +25,7 @@ const sendMail = async (to, subject, text, html) => {
     // Construct the footer HTML
     html += `<br><br>
     <div style="border-top: 1px solid #ddd; padding-top: 20px; margin-top: 20px; font-family: Arial, sans-serif; color: #555;">
-        <img src="https://raw.githubusercontent.com/rahoolsingh/Backend/refs/heads/master/public/assets/logo-white-border.png" alt="Logo" width="200" height="auto" style="display: block; margin: 0;">
+        <img src="https://res.cloudinary.com/dwiouayh7/image/upload/v1728839717/My%20Brand/veerRajpoot_mplaff.png" alt="Logo" width="200" height="auto" style="display: block; margin: 0;">
         <p style="font-size: 16px; font-weight: bold; margin: 0;">Data Management by Veer Rajpoot</p>
         <p style="font-size: 12px; margin: 5px 0;">&copy; ${new Date().getFullYear()} Veer Rajpoot. All rights reserved.</p>
         
