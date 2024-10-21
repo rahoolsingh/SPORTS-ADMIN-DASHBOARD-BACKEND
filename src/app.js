@@ -30,8 +30,16 @@ app.get("/api/v1", (req, res) => {
     // setTimeout(() => {
     //     // res.json({ message: "Welcome to the API", success: true, status: 200 });
     // }, 200000);
-    res.json({ message: "Welcome to the API", success: true, status: 200 });
+    res.json({ message: "Welcome to the API v1", success: true, status: 200 });
     // res.error("Welcome to the API");
+});
+
+app.get("/", (req, res) => {
+    res.json({
+        message: "Get request to the root",
+        success: true,
+        status: 200,
+    });
 });
 
 export default app;
