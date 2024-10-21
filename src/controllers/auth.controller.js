@@ -206,16 +206,24 @@ const addAuthUser = async (req, res) => {
         const user = await auth.findOne({ email });
 
         if (user) {
-            return res.status(400).json({ message: "User already exists" });
+            return res
+                .status(400)
+                .json({ message: "User already exists", success: false });
         }
 
         const newUser = new auth({ email });
         await newUser.save();
 
-        res.status(201).json({ message: "User added successfully" });
+        res.status(201).json({
+            message: "User added successfully",
+            success: true,
+        });
     } catch (error) {
         console.error("Error adding user:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({
+            message: "Internal server error",
+            success: false,
+        });
     }
 };
 
