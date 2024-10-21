@@ -26,8 +26,12 @@ app.use("/api/v1/athelete", atheleteRoutes);
 import coachRoutes from "./routes/coach.routes.js";
 app.use("/api/v1/coach", coachRoutes);
 
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to the API" });
+app.get("/api/v1", (req, res) => {
+    // setTimeout(() => {
+    //     // res.json({ message: "Welcome to the API", success: true, status: 200 });
+    // }, 200000);
+    res.json({ message: "Welcome to the API", success: true, status: 200 });
+    // res.error("Welcome to the API");
 });
 
 export default app;
